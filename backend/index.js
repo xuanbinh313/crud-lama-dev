@@ -8,10 +8,10 @@ app.use(express.urlencoded({extend:true,limit:'30mb'}))
 app.use(cors())
 
 const db = mysql.createConnection({
-  host:"localhost",
-  user:"root",
-  password:"password",
-  database:"test"
+  host:"sql.freedb.tech",
+  user:"freedb_booksUser",
+  password:"?sfzZ8yHr8Q@RSV",
+  database:"freedb_booksDB"
 })
 // if there is auth problem, run this code in db
 // ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
