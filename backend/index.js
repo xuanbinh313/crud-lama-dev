@@ -29,16 +29,34 @@ app.get("/books",(_,res)=>{
 })
 
 app.post("/books",(req,res)=>{
-  const q = "INSERT INTO books (`title`,`desc`,`cover`) VALUES (?)"
-  const values = [
-    req.body.title,
-    req.body.desc,
-   req.body.cover 
-  ]
-  db.query(q,[values],(err,data)=>{
+  const q = "INSERT INTO books (`title`,`desc`,`cover`,`price`) VALUES (?)"
+  const values = [ req.body.title, req.body.desc, req.body.cover, req.body.price ]
+  db.query(q,[values],(err,_)=>{
     if(err) return res.json(err)
-    return res.status(201).json(data)
+    return res.status(201)
   })
 })
+
+app.delete("/books/:id",(req,res)=>{
+  const boodId = req.params.id
+  const q = "DELETE FROM books WHERE id = ?"
+  //const q = "UPDATE books SET (`title`,`desc`,`cover`,`price`)  WHERE (`id` = '2')"
+  db.query(q,[boodId],(err,_)=>{
+    if(err) return res.json(err)
+    return res.status(200).json("Delete success")
+  })
+})
+
+app.put("/book/:id",(req,_)=>{
+  const {title,desc,cover} = req.body
+  const boodId = req.params.id
+  const values = [title,desc,cover,boodId]
+  const q = "UPDATE books SET `title` = ?, `desc` = ?, `cover` = ? WHERE id = ?"
+  db.query(q,[values],(res,_)=>{
+    if(err) return res.json(err)
+    return res.json("update successfully")
+  })
+})
+
 
 app.listen(8800,()=>console.log("Backend running"))
