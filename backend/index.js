@@ -16,15 +16,28 @@ const db = mysql.createConnection({
 // if there is auth problem, run this code in db
 // ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 
-app.get("/",(req,res)=>{
-  res.json("Hello")
+app.get("/",(_,res)=>{
+  res.json("Welcome to backend CRUD from Lama")
 })
 
-app.get("/books",(req,res)=>{
+app.get("/books",(_,res)=>{
   const q = "SELECT * FROM books"
   db.query(q,(err,data)=>{
     if(err) return res.json(err)
     return res.json(data)
+  })
+})
+
+app.post("/books",(req,res)=>{
+  const q = "INSERT INTO books (`title`,`desc`,`cover`) VALUES (?)"
+  const values = [
+    req.body.title,
+    req.body.desc,
+   req.body.cover 
+  ]
+  db.query(q,[values],(err,data)=>{
+    if(err) return res.json(err)
+    return res.status(201).json(data)
   })
 })
 
