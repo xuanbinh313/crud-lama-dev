@@ -7,7 +7,7 @@ app.use(express.json({ extend: true, limit: '30mb' }))
 app.use(express.urlencoded({ extend: true, limit: '30mb' }))
 app.use(cors())
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host:"sql.freedb.tech",
   user:"freedb_booksUser",
   password:"Yn8eTUF*sTZ3pmA",
