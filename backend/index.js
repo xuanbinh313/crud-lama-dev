@@ -3,8 +3,8 @@ import cors from 'cors'
 import mysql from 'mysql'
 const app = express()
 
-app.use(express.json({ extend: true, limit: '30mb' }))
-app.use(express.urlencoded({ extend: true, limit: '30mb' }))
+app.use(express.json({ extended: true, limit: '30mb' }))
+app.use(express.urlencoded({ extended: true, limit: '30mb' }))
 app.use(cors())
 
 const db = mysql.createPool({
